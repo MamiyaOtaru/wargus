@@ -43,7 +43,7 @@ black = Color(0, 0, 0)
 
 bckground = CGraphic:New("ui/Menu_background_with_title.png")
 bckground:Load()
-bckground:Resize(Video.Width, Video.Height)
+bckground:Resize(Video.FourThreeWidth, Video.FourThreeHeight)
 backgroundWidget = ImageWidget(bckground)
 
 g_hbln = CGraphic:New("ui/human/widgets/button-large-normal.png")
@@ -782,14 +782,19 @@ function WarMenu(title, background, resize)
     bgg = CGraphic:ForceNew(background)
     bgg:Load()
     if (resize == nil or resize == true) then
-       bgg:Resize(Video.Width, Video.Height)
+       bgg:Resize(Video.FourThreeWidth, Video.FourThreeHeight)
     elseif type(resize) == "table" then
       bgg:Resize(resize[1], resize[2])
       menu:resize(resize[1], resize[2])       
     end
     bg = ImageWidget(bgg)
   end
-  menu:add(bg, 0, 0)
+
+  if (resize == nil or resize == true) then
+    menu:add(bg, (Video.Width - Video.FourThreeWidth) / 2, (Video.Height - Video.FourThreeHeight) / 2)
+  else
+    menu:add(bg, 0, 0)
+  end
 
   AddMenuHelpers(menu)
 
